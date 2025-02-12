@@ -1,0 +1,12 @@
+<div class="area-login-background d-none d-md-block"></div>
+<div class="area-form">
+  <form>
+    <h1 class="titulo">FUNCIONÁRIOS</h1>
+    <H2 CLASS="subtitulo">Sejam bem vindos!</H2>
+
+    <input [(ngModel)]="userName" [ngModelOptions]="{standalone: true}" class="input-form"  placeholder="Digite seu nome" type="text">
+
+    <app-button textButton="Acessar" size="100" (click)="login()"></app-button>
+  </form>
+  <p class="footer"> © 2025    |    Desenvolvido por Bruna e Rafael  </p>
+</div>

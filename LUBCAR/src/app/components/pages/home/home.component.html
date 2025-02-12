@@ -1,0 +1,102 @@
+<app-menu></app-menu>
+
+<div class="container-fluid pt-3">
+  <div class="row">
+    <!-- Lado esquerdo da tela -->
+    <div class="col-12 col-lg-9">
+      <!-- primeiro card-->
+      <div class="card-info">
+        <div class="row">
+          <div class="col-12 col-md-8">
+            <h1 class="titulo">Clientes</h1>
+            <h3 class="subtitulo">A manutenção regular de troca de óleo e filtros é essencial para garantir a longevidade e
+              a performance dos veículos.<span>Clientes</span> dedicados a essa prática evitam problemas maiores e custos adicionais no
+              futuro. Para os <span>funcionários</span>, realizar essas manutenções é uma oportunidade de demonstrar sua expertise e
+              compromisso com a satisfação do <span>cliente</span>. Esse cuidado mútuo fortalece a relação entre <span>clientes</span> e <span>funcionários</span>,
+              mantendo os motores funcionando suavemente. Ao confiar nos serviços qualificados, os clientes desfrutam de paz
+              de espírito e segurança nas estradas.
+              <br></h3>
+
+            <app-button textButton="Listar Clientes" routerLink="/cliente"></app-button>
+          </div>
+          <div class="col-12 col-md-4">
+            <img src="../../../assets/close-up-hands-unrecognizable-mechanic-doing-car-service-maintenance.png" width="100%">
+          </div>
+        </div>
+      </div>
+
+      <!-- parte de baixo da tela -->
+      <div class="row mt-4">
+        <!-- card esquerda -->
+        <div class="col-6">
+          <div class="card-info">
+            <div class="row">
+              <div class="col-8">
+                <p class="texto-card">Total de clientes cadastrados no sistema</p>
+                <p class="numero-card">80</p>
+                <p class="destaque-card">+8 adicionados na última semana</p>
+              </div>
+              <div class="col-4">
+                <mat-progress-spinner class="example-margin mx-auto color-spinner" mode="determinate" value="20"></mat-progress-spinner>
+                <p class="info-spinner">200/1000</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- card direita -->
+        <div class="col-6">
+          <div class="card-info">
+            <div class="row">
+              <div class="col-8">
+                <p class="texto-card">Total de funcionários cadastrados no sistema</p>
+                <p class="numero-card">6</p>
+                <p class="destaque-card">+2 adicionados no último ano</p>
+              </div>
+              <div class="col-4">
+                <mat-progress-spinner class="example-margin mx-auto color-spinner" mode="determinate" value="100"></mat-progress-spinner>
+                <p class="info-spinner">6/6</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- card cliente cadastrado-->
+        <div class="col-12 mt-4">
+          <div class="card-info">
+            <h3 class="titulo">Último cliente cadastrado</h3>
+
+            <hr class="hr">
+            <div class="row">
+              <div class="col-1"> <mat-icon>account_circle</mat-icon> </div>
+              <div class="col-1"> <p class="texto-p">1</p> </div>
+              <div class="col-1"><p class="texto-p">Bruna Donato</p> </div>
+              <div class="col-1"><p class="texto-p">Renegade</p> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Lado direito da tela -->
+    <div class="col-12 col-lg-3">
+      <div class="card-info">
+        <div class="conteiner-perfil">
+          <img src="../../../assets/195.jpg" class="img-perfil" >
+          <h4> Seja bem vindo</h4>
+          <h5>{{userName}}</h5>
+          <li> <mat-icon>location_on</mat-icon></li>
+        </div>
+
+        <hr class="hr">
+        <p class="texto-p">wehnconwiorfnwriojfpwjipiwejwjjewwji</p>
+        <hr class="hr">
+
+        <li> <mat-icon>person</mat-icon>Gerencia clientes</li>
+        <li> <mat-icon>loyalty</mat-icon>Adicione serviços</li>
+        <li> <mat-icon>format_list_bulleted</mat-icon>Consulte cadastros</li>
+        <li> <mat-icon>delete</mat-icon>Excluir clientes</li>
+      </div>
+    </div>
+  </div>
+</div>

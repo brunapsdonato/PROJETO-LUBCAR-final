@@ -1,0 +1,128 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title> Cadastro de Clientes</mat-card-title>
+        </mat-card-header>
+          <mat-card-content>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6 d-flex flex-row justify-content-end">
+                  <button mat-raised-button (click)="!typeAdd ? addCliente() : search()">{{!typeAdd ? 'Cadastrar' : 'Voltar'}}</button>
+                </div>
+                  <div class="col-12"> <hr></div>
+              </div>
+              <div *ngIf="!typeAdd">
+                <div class="col-12">
+                  <form [formGroup]="searchForm">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Pesquisar por Nome</mat-label>
+                      <input matInput placeholder="Digite o nome do Cliente" formControlName="searchNome">
+                    </mat-form-field>
+                    <div class="col-12 d-flex flex-row justify-content-end">
+                      <button mat-raised-button type="button" class="me-2" (click)="pesquisarClientePorNome()">Pesquisar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="container-fluid" *ngIf="!typeAdd">
+              <div class="row mt-3">
+                <div class="col-12">
+                  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                    <ng-container matColumnDef="actions">
+                      <th mat-header-cell *matHeaderCellDef> Ação </th>
+                      <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button (click)="editar(element)">
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="remover(element.id)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nome">
+                      <th mat-header-cell *matHeaderCellDef> Nome </th>
+                      <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="carroModelo">
+                      <th mat-header-cell *matHeaderCellDef> Modelo do Veículo </th>
+                      <td mat-cell *matCellDef="let element"> {{element.carroModelo}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ano">
+                      <th mat-header-cell *matHeaderCellDef> Ano de Fabricação</th>
+                      <td mat-cell *matCellDef="let element"> {{element.ano}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="data">
+                      <th mat-header-cell *matHeaderCellDef> Data do serviço </th>
+                      <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="servico">
+                      <th mat-header-cell *matHeaderCellDef> Serviço realizado</th>
+                      <td mat-cell *matCellDef="let element"> {{element.servico}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tela de cadastro -->
+            <div class="container-fuid" *ngIf="typeAdd">
+              <div class="row">
+                <div class="col-12">
+                  <form [formGroup]="form" >
+                    <div class="row">
+                    <div class="col-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Nome</mat-label>
+                        <input matInput placeholder="" formControlName="nome">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Modelo do Veículo</mat-label>
+                        <input matInput placeholder="" formControlName="carroModelo">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Ano de Fabricação</mat-label>
+                        <input matInput placeholder="" formControlName="ano">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Data do Serviço</mat-label>
+                        <input matInput placeholder="" formControlName="data">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-8">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Serviço Realizado</mat-label>
+                        <input matInput placeholder="" formControlName="servico">
+                      </mat-form-field>
+                    </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 text-end">
+                        <button mat-raised-button type="button" class="me-2"  (click)="salvar()">Salvar</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
