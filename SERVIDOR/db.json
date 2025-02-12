@@ -1,0 +1,68 @@
+{
+  "clientes": [
+    {
+      "id": "",
+      "nome": "Brenda Medeiros",
+      "modelo": "Gol",
+      "ano": 2024,
+      "data": "11/02/2025",
+      "servico": "Troca de filtro"
+    },
+    {
+      "id": "",
+      "nome": "Maria Sousa",
+      "modelo": "Corola",
+      "ano": 2023,
+      "data": "11/02/2025",
+      "servico": "Troca de filtro"
+    },
+    {
+      "id": "",
+      "nome": "Patrícia Costa",
+      "modelo": "Gol",
+      "ano": 2025,
+      "data": "11/02/2025",
+      "servico": "Troca de óleo"
+    },
+    {
+      "id": null,
+      "nome": "Ana Flávia",
+      "carroModelo": "Corsa",
+      "ano": "2025",
+      "data": "12/02/2025",
+      "servico": "Troca de óleo"
+    },
+    {
+      "id": null,
+      "nome": "Ana Maria",
+      "carroModelo": "Corsa",
+      "ano": "2025",
+      "data": "12/02/2025",
+      "servico": "Troca de óleo"
+    },
+    {
+      "id": null,
+      "nome": "Ana Maria",
+      "carroModelo": "Corsa",
+      "ano": "2025",
+      "data": "12/02/2025",
+      "servico": "Troca de óleo"
+    },
+    {
+      "id": null,
+      "nome": "Ana Maria",
+      "carroModelo": "Corsa",
+      "ano": "2025",
+      "data": "12/02/2025",
+      "servico": "Troca de óleo"
+    },
+    {
+      "id": null,
+      "nome": "Ana Maria",
+      "carroModelo": "Corsa",
+      "ano": "2025",
+      "data": "12/02/2025",
+      "servico": "Troca de óleo"
+    }
+  ]
+}
