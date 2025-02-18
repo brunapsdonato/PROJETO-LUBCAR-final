@@ -3,7 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {ClienteModule} from '../../../modulo/cliente/cliente.module';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ClienteService, Cliente} from '../../../modulo/service/cliente.service';
-
+import {MenuComponent} from '../../menu/menu.component';
 
 @Component({
   selector: 'app-cliente',

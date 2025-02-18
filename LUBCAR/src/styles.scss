@@ -2,7 +2,7 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: 'Times New Roman', Times, serif "Helvetica Neue", sans-serif; }
 
 :root{
   --primary-color: #580258;
@@ -15,18 +15,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .hover:hover{ cursor: pointer;}
 
-.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle, .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic{
+.mat-mdc-progress-spinner .mdc-circular-progress_determinate-circle, .mat-mdc-progress-spinner .mdc-circular-progress_indeterminate-circle-graphic{
   stroke: var(--primary-color) !important;
 }
 
 li{
   font-size: 14px;
   font-weight: 500;
-  color: #868686;
+  color: #868693;
   padding: 14px 0;
   margin: 0;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #dbdbdb;
-  mat-icon{margin-right: 14px; font-size: 22px;}
+  mat-icon{margin-right: 14px; font-size: 22px;}
 }
