@@ -16,5 +16,7 @@ export class ClienteModule {
   ano: number;
   data: string;
   servico: string;
+  cpf: string;
+  email: string;
 
 }

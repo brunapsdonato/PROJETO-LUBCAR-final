@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -11,6 +10,7 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
 import {RouterModule} from '@angular/router';
 import { ClienteComponent } from './components/pages/cliente/cliente.component';
+import { CrudClienteComponent } from './components/pages/crud-cliente/crud-cliente.component';
 
 //Angular Material
 import { MatIconModule } from '@angular/material/icon';
@@ -21,8 +21,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-
-
+import {AngularFireModule} from '@angular/fire/compat';
+import {environment} from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
     HomeComponent,
     MenuComponent,
     ClienteComponent,
+    CrudClienteComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,8 +47,9 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    HttpClientModule
-
+    HttpClientModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}},
