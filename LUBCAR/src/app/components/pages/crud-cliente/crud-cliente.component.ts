@@ -53,7 +53,18 @@ export class CrudClienteComponent implements OnInit {
     })
   }
 
-  applyFilter(event: Event) {
+  deleteCliente(firebaseId: string) {
+    this.clientesService.deleteCliente(firebaseId).subscribe({
+      next: () => {
+        console.log('Cliente deletado com sucesso!');
+      },
+      error: (err) => {
+        console.error('Erro ao deletar cliente:', err);
+      }
+    });
+  }
+
+    applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 

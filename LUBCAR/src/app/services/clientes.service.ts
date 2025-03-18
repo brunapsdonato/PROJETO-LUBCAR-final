@@ -37,8 +37,10 @@ export class ClientesService {
     });
   }
 
-  deleteCliente(clienteId: string){
-    return this.firestore.collection('clientes').doc(clienteId).delete();
+  deleteCliente(clienteId: string):Observable<any> {
+    return runInInjectionContext(this.injetor, () => {
+      return from(this.colecaoClientes.doc(clienteId).delete());
+    });
   }
 
 }

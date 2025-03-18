@@ -28,6 +28,7 @@ export class ModalFormClienteComponent implements OnInit{
  ]
 
   formCliente: FormGroup;
+  editUser: boolean = false;
 
   constructor(
     public diaLogRef: MatDialogRef<ModalFormClienteComponent>,
@@ -38,6 +39,9 @@ export class ModalFormClienteComponent implements OnInit{
 
     ngOnInit(){
       this.builForm();
+      if(this.data && this.data.nome){
+        this.editUser = true;
+      }
     }
 
     saveCliente() {

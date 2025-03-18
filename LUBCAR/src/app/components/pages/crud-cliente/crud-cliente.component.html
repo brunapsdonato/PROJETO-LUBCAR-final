@@ -64,12 +64,12 @@
           <td class="td-table" mat-cell *matCellDef="let cliente">
             <mat-icon class="icone-tabela" (click)="openModalViewCliente(cliente)">visibility</mat-icon>
             <mat-icon class="icone-tabela" (click)="openModalEditCliente(cliente)">edit</mat-icon>
-            <mat-icon class="icone-tabela">delete</mat-icon>
+            <mat-icon class="icone-tabela" (dblclick)="deleteCliente(cliente.firebaseId)">delete</mat-icon>
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let cliente; columns: displayedColumns;"></tr>
 
 
         <tr class="mat-row" *matNoDataRow>
@@ -77,7 +77,7 @@
         </tr>
       </table>
 
-      <mat-paginator class="shadow-sm" [pageSizeOptions]="[3,5,7]" aria-label="Selecione usuários por página"></mat-paginator>
+      <mat-paginator class="shadow-sm" [pageSizeOptions]="[10,20,30]" aria-label="Selecione usuários por página"></mat-paginator>
     </div>
   </div>
 </div>
