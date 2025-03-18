@@ -1,6 +1,6 @@
-import {EnvironmentInjector, Injectable} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/compat/firestore';
-import {map, Observable} from 'rxjs';
+import {inject, Injectable, Injector, runInInjectionContext} from '@angular/core';
+import {AngularFirestore, AngularFirestoreCollection, DocumentReference} from '@angular/fire/compat/firestore';
+import {from, map, Observable, switchMap, throwError} from 'rxjs';
 import {Cliente} from '../interfaces/cliente';
 
 @Injectable({
@@ -8,32 +8,37 @@ import {Cliente} from '../interfaces/cliente';
 })
 export class ClientesService {
 
-  constructor(private dataBaseStore: AngularFirestore, private injector: EnvironmentInjector) { }
+  private injetor = inject(Injector);
+  private colecaoClientes: AngularFirestoreCollection<Cliente>;
+  Nome_colecao = 'clientes';
+  constructor(private firestore: AngularFirestore) {
+    this.colecaoClientes = this.firestore.collection(this.Nome_colecao);
+    runInInjectionContext(this.injetor, () => {
+      this.colecaoClientes = this.firestore.collection(this.Nome_colecao);
+    })
+  }
 
-  getAllClientes(): Observable<any[]> {
-    return new Observable((observer) => {
-      this.injector.runInInjectionContext(() => {
-        this.dataBaseStore
-          .collection('clientes', (ref) => ref.orderBy('nome'))
-          .valueChanges({ idField: 'firebaseId' })
-          .subscribe({
-            next: (data) => observer.next(data),
-            error: (err) => observer.error(err),
-            complete: () => observer.complete(),
-          });
-      });
+  listar(): Observable<Cliente[]> {
+    return runInInjectionContext(this.injetor, () => {
+      return this.colecaoClientes.valueChanges({idField: 'firebaseId'});
     });
   }
-  addCliente(cliente: Cliente) {
-    return this.dataBaseStore.collection('clientes').add(cliente);
+  addCliente(cliente: Cliente): Observable<Cliente> {
+    delete cliente.firebaseId;
+    return from(this.colecaoClientes.add({...cliente})).pipe(
+      switchMap((docRef: DocumentReference<Cliente>) => docRef.get()),
+      map(doc => ({id: doc.id, ...doc.data()} as Cliente))
+    );
   }
 
-  updateCliebte(clienteId: string, cliente: Cliente){
-    return this.dataBaseStore.collection('clientes').doc(clienteId).update(cliente);
+  updateCliente(clienteId: string | undefined, cliente: Cliente): Observable<void> {
+    return runInInjectionContext(this.injetor, () => {
+      return from(this.colecaoClientes.doc(clienteId).update({...cliente}));
+    });
   }
 
   deleteCliente(clienteId: string){
-    return this.dataBaseStore.collection('clientes').doc(clienteId).delete();
+    return this.firestore.collection('clientes').doc(clienteId).delete();
   }
 
 }

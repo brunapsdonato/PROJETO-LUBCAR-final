@@ -7,4 +7,5 @@ export interface Cliente {
   servico: string;
   cpf: string;
   email: string;
+  valor: number;
 }

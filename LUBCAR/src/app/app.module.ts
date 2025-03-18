@@ -24,7 +24,18 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {AngularFireModule} from '@angular/fire/compat';
 import {environment} from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { CommonModule } from '@angular/common';
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
+import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import { ModalViewClienteComponent } from './components/pages/crud-cliente/modal-view-cliente/modal-view-cliente.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ModalFormClienteComponent } from './components/pages/crud-cliente/modal-form-cliente/modal-form-cliente.component';
+import {MatSelectModule} from '@angular/material/select';
+
 @NgModule({
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     ButtonComponent,
@@ -33,8 +44,11 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     MenuComponent,
     ClienteComponent,
     CrudClienteComponent,
+    ModalViewClienteComponent,
+    ModalFormClienteComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule,
@@ -49,12 +63,19 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     ReactiveFormsModule,
     HttpClientModule,
     AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    MatPaginator,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatSelectModule
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}},
     provideAnimationsAsync()
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule { }

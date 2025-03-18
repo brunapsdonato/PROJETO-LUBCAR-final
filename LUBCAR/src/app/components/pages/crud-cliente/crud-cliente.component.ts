@@ -1,5 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ClientesService} from '../../../services/clientes.service';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {Cliente} from '../../../interfaces/cliente';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatDialog} from '@angular/material/dialog';
+import {ModalViewClienteComponent} from './modal-view-cliente/modal-view-cliente.component';
+import {ModalFormClienteComponent} from './modal-form-cliente/modal-form-cliente.component';
+
+
 
 @Component({
   selector: 'app-crud-cliente',
@@ -9,19 +18,39 @@ import {ClientesService} from '../../../services/clientes.service';
 })
 export class CrudClienteComponent implements OnInit {
 
+  displayedColumns: string[] = ['nome', 'cpf', 'email', 'carroModelo', 'ano', 'data', 'servico', 'valor','action'];
   dataSource: any;
+  listaClientes: Cliente[] = [];
 
-  constructor(private clientesService: ClientesService) {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(private clientesService: ClientesService, public dialog: MatDialog, ) {
+    this.dataSource = new MatTableDataSource<any>(this.listaClientes);
   }
   ngOnInit() {
     this.getListClientes();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   getListClientes() {
-    this.clientesService.getAllClientes().subscribe({
-      next: (clientes) => console.log('Clientes:', clientes),
-      error: (err) => console.error('Erro ao buscar clientes:', err)
-    });
+    this.clientesService.listar().subscribe({
+      next: (response: any) => {
+        console.log('Lista de Clientes Firebase', response);
+        this.listaClientes = response;
+        this.dataSource = new MatTableDataSource<any>(this.listaClientes);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.paginator._intl.itemsPerPageLabel="Itens por página";
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
   }
 
   applyFilter(event: Event) {
@@ -32,4 +61,28 @@ export class CrudClienteComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  openModalViewCliente(cliente: Cliente){
+    this.dialog.open(ModalViewClienteComponent,{
+      width: '700px',
+      height: '330px',
+      data: cliente
+    })
+  }
+
+  openModalAddCliente(){
+    this.dialog.open(ModalFormClienteComponent,{
+      width: '700px',
+      height: '400px'
+    }).afterClosed().subscribe(() => this.getListClientes());
+  }
+
+  openModalEditCliente(cliente: Cliente){
+    this.dialog.open(ModalFormClienteComponent,{
+      width: '700px',
+      height: '400px',
+      data: cliente
+    }).afterClosed().subscribe(() => this.getListClientes());
+  }
+
 }

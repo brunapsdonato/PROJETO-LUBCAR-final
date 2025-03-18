@@ -1,0 +1,92 @@
+<div class="container-fluid p-3">
+  <mat-icon class="float-end hover" (click)="closeModal()">close</mat-icon>
+
+  <h1 class="titulo">Cadastro de cliente</h1>
+  <h2 class="subtitulo">Preencha o formulário para salvar o cliente</h2>
+
+  <form class="row" [formGroup]="formCliente">
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>Nome</mat-label>
+        <input type="text" matInput formControlName="nome" placeholder="Digite seu nome">
+        @if (formCliente.controls['nome'].invalid) {
+          <mat-error>Por favor digite um nome válido </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>CPF</mat-label>
+        <input type="text" matInput formControlName="cpf" placeholder="Digite seu CPF">
+        @if (formCliente.controls['cpf'].invalid) {
+        <mat-error>Por favor digite um CPF válido </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>E-mail</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Digite seu e-mail">
+        @if (formCliente.controls['email'].invalid) {
+        <mat-error>Por favor digite um e-mail válido </mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>Modelo do Veículo</mat-label>
+        <input type="text" matInput formControlName="carroModelo" placeholder="Digite o modelo ">
+        @if (formCliente.controls['carroModelo'].invalid) {
+        <mat-error>Por favor digite um nome válido </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>Ano de Fabricação</mat-label>
+        <input type="text" matInput formControlName="ano" placeholder="Digite o ano de fabricação ">
+        @if (formCliente.controls['ano'].invalid) {
+        <mat-error>Por favor digite um ano válido </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>Data do serviço</mat-label>
+        <input type="text" matInput formControlName="data" placeholder="Digite a data do serviço ">
+        @if (formCliente.controls['data'].invalid) {
+        <mat-error>Por favor digite uma data válida </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="w-100">
+        <mat-label>Serviço realizado</mat-label>
+        <mat-select formControlName="servico">
+          @for (servico of listaServico; track servico) {
+          <mat-option [value]="servico.descricao">{{servico.descricao}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>Valor do Serviço</mat-label>
+        <input type="text" matInput formControlName="valor" placeholder="Digite o valor">
+        @if (formCliente.controls['valor'].invalid) {
+        <mat-error>Por favor digite um valor válido </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="col-12">
+      <button class="botao-primario float-end" [disabled]="!formCliente.valid" (click)="saveCliente()">salvar cliente</button>
+    </div>
+  </form>
+</div>
