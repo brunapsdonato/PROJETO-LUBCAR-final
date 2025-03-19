@@ -1,8 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ClientesService} from '../../../../services/clientes.service';
 import {Cliente} from '../../../../interfaces/cliente';
+import { dataMinimaValidator } from '../../../../../app/data-minima.validator';
+
 
 @Component({
   selector: 'app-modal-form-cliente',
@@ -29,6 +31,7 @@ export class ModalFormClienteComponent implements OnInit{
 
   formCliente: FormGroup;
   editUser: boolean = false;
+
 
   constructor(
     public diaLogRef: MatDialogRef<ModalFormClienteComponent>,
@@ -73,7 +76,7 @@ export class ModalFormClienteComponent implements OnInit{
       email: [null, [Validators.required, Validators.email]],
       carroModelo: [null, [Validators.required, Validators.minLength(2)]],
       ano: [null, [Validators.required, Validators.minLength(4)]],
-      data: [null, [Validators.required,  this.validarDataPassada]],
+      data: new FormControl('', [dataMinimaValidator()]),
       servico: [null, [Validators.required, Validators.minLength(5)]],
       valor: [null, [Validators.required, Validators.minLength(3)]],
     });
@@ -94,14 +97,6 @@ export class ModalFormClienteComponent implements OnInit{
       servico: this.data.servico,
       valor: this.data.valor
     })
-  }
-  validarDataPassada(control: AbstractControl): ValidationErrors | null {
-    const data = new Date(control.value);
-    const hoje = new Date();
-    if (data < hoje) {
-      return { dataPassada: true }; // Retorna um erro se a data for no passado
-    }
-    return null; // Sem erros
   }
 
   closeModal(){this.diaLogRef.close(); }

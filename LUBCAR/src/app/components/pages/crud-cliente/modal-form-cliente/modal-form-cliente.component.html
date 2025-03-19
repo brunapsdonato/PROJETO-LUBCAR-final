@@ -56,12 +56,12 @@
     </div>
 
     <div class="col-12 col-md-6 mb-2">
-      <mat-form-field class="example-full-width w-100">
+      <mat-form-field class="example-full-width">
         <mat-label>Data do serviço</mat-label>
-        <input type="text" matInput formControlName="data" placeholder="Digite a data do serviço ">
-        @if (formCliente.controls['data'].invalid) {
-        <mat-error>Por favor digite uma data válida </mat-error>
-        }
+        <input matInput [matDatepicker]="picker" placeholder="Digite a data do serviço" formControlName="data">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="formCliente.controls['data'].invalid">Por favor, digite uma data válida</mat-error>
       </mat-form-field>
     </div>
 

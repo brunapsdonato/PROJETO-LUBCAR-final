@@ -24,7 +24,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {AngularFireModule} from '@angular/fire/compat';
 import {environment} from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
@@ -33,6 +33,23 @@ import { ModalViewClienteComponent } from './components/pages/crud-cliente/modal
 import {MatDialogModule} from '@angular/material/dialog';
 import { ModalFormClienteComponent } from './components/pages/crud-cliente/modal-form-cliente/modal-form-cliente.component';
 import {MatSelectModule} from '@angular/material/select';
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerModule,
+  MatDatepickerToggle
+} from '@angular/material/datepicker';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import {APP_DATE_FORMATS} from './app-date-formats';
+import {AppDateAdapter} from './app-date-adapter';
+import {CrudFuncionarioComponent} from './components/pages/crud-funcionario/crud-funcionario.component';
+import { ModalViewFuncionarioComponent } from './components/pages/crud-funcionario/modal-view-funcionario/modal-view-funcionario.component';
+import { ModalFormFuncionarioComponent } from './components/pages/crud-funcionario/modal-form-funcionario/modal-form-funcionario.component';
+import { CrudInsumosComponent } from './components/pages/crud-insumos/crud-insumos.component';
+import { ModalFormInsumoComponent } from './components/pages/crud-insumos/modal-form-insumo/modal-form-insumo.component';
+import { ModalViewInsumoComponent } from './components/pages/crud-insumos/modal-view-insumo/modal-view-insumo.component';
+
+
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -46,6 +63,12 @@ import {MatSelectModule} from '@angular/material/select';
     CrudClienteComponent,
     ModalViewClienteComponent,
     ModalFormClienteComponent,
+    CrudFuncionarioComponent,
+    ModalViewFuncionarioComponent,
+    ModalFormFuncionarioComponent,
+    CrudInsumosComponent,
+    ModalFormInsumoComponent,
+    ModalViewInsumoComponent,
   ],
   imports: [
     CommonModule,
@@ -66,15 +89,22 @@ import {MatSelectModule} from '@angular/material/select';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     MatDialogModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
     MatPaginator,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatDatepicker,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}},
+    { provide: DateAdapter, useClass: AppDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    [DatePipe],
     provideAnimationsAsync()
   ],
 })

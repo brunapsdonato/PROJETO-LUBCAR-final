@@ -11,6 +11,7 @@ export class ClientesService {
   private injetor = inject(Injector);
   private colecaoClientes: AngularFirestoreCollection<Cliente>;
   Nome_colecao = 'clientes';
+
   constructor(private firestore: AngularFirestore) {
     this.colecaoClientes = this.firestore.collection(this.Nome_colecao);
     runInInjectionContext(this.injetor, () => {
@@ -23,7 +24,9 @@ export class ClientesService {
       return this.colecaoClientes.valueChanges({idField: 'firebaseId'});
     });
   }
+
   addCliente(cliente: Cliente): Observable<Cliente> {
+    cliente.data = new Date();
     delete cliente.firebaseId;
     return from(this.colecaoClientes.add({...cliente})).pipe(
       switchMap((docRef: DocumentReference<Cliente>) => docRef.get()),
@@ -37,10 +40,28 @@ export class ClientesService {
     });
   }
 
-  deleteCliente(clienteId: string):Observable<any> {
+  deleteCliente(clienteId: string): Observable<any> {
     return runInInjectionContext(this.injetor, () => {
       return from(this.colecaoClientes.doc(clienteId).delete());
     });
+  }
+
+  getTotalClientes(): Observable<number> {
+    return this.colecaoClientes.snapshotChanges().pipe(
+      map(actions => actions.length) // Conta o total de documentos
+    );
+  }
+
+  getClientesUltimaSemana(): Observable<number> {
+    const hoje = new Date();
+    const umaSemanaAtras = new Date(hoje);
+    umaSemanaAtras.setDate(hoje.getDate() - 7); // Define uma semana atrás
+
+    return from(
+      this.colecaoClientes.ref.where('dataCadastro', '>=', umaSemanaAtras).get()
+    ).pipe(
+      map(snapshot => snapshot.size) // Retorna o número de documentos
+    );
   }
 
 }

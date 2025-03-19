@@ -7,7 +7,7 @@
       <!-- primeiro card-->
       <div class="card-info">
         <div class="row">
-          <div class="col-12 col-md-8">
+          <div class="col-12 col-md-12">
             <h1 class="titulo">Clientes</h1>
             <h3 class="subtitulo">A manutenção regular de troca de óleo e filtros é essencial para garantir a longevidade e
               a performance dos veículos.<span>Clientes</span> dedicados a essa prática evitam problemas maiores e custos adicionais no
@@ -18,9 +18,6 @@
               <br></h3>
 
             <app-button textButton="Listar Clientes" routerLink="/crud-cliente"></app-button>
-          </div>
-          <div class="col-12 col-md-4">
-            <img src="../../../assets/close-up-hands-unrecognizable-mechanic-doing-car-service-maintenance.png" width="100%">
           </div>
         </div>
       </div>
@@ -33,8 +30,8 @@
             <div class="row">
               <div class="col-8">
                 <p class="texto-card">Total de clientes cadastrados no sistema</p>
-                <p class="numero-card">80</p>
-                <p class="destaque-card">+8 adicionados na última semana</p>
+                <p class="numero-card">{{ totalClientes }}</p>
+                <p class="destaque-card">{{ totalClientesSemana }} adicionados na última semana</p>
               </div>
               <div class="col-4">
                 <mat-progress-spinner class="example-margin mx-auto color-spinner" mode="determinate" value="20"></mat-progress-spinner>
@@ -82,19 +79,18 @@
     <div class="col-12 col-lg-3">
       <div class="card-info">
         <div class="conteiner-perfil">
-          <img src="../../../assets/195.jpg" class="img-perfil" >
-          <h4> Seja bem vindo</h4>
+          <h4> Seja bem vindo(a)!</h4>
           <h5>{{userName}}</h5>
           <li> <mat-icon>location_on</mat-icon></li>
         </div>
 
         <hr class="hr">
-        <p class="texto-p">wehnconwiorfnwriojfpwjipiwejwjjewwji</p>
+        <p class="texto-p">Você é muito importante para nossa empresa!</p>
         <hr class="hr">
 
-        <li> <mat-icon>person</mat-icon>Gerencia clientes</li>
+        <li> <mat-icon>person</mat-icon>Gerenciar clientes</li>
         <li> <mat-icon>loyalty</mat-icon>Adicione serviços</li>
-        <li> <mat-icon>format_list_bulleted</mat-icon>Consulte cadastros</li>
+        <li> <mat-icon>format_list_bulleted</mat-icon>Consulte insumos</li>
         <li> <mat-icon>delete</mat-icon>Excluir clientes</li>
       </div>
     </div>

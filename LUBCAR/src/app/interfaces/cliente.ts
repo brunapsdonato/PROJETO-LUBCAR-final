@@ -3,7 +3,7 @@ export interface Cliente {
   nome: string;
   carroModelo: string;
   ano: number;
-  data: string;
+  data: Date;
   servico: string;
   cpf: string;
   email: string;

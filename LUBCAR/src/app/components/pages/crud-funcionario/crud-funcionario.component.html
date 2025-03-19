@@ -1,0 +1,69 @@
+<app-menu> </app-menu>
+
+<div class="container-fluid pt-3">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="titulo">Cadastro de Funcionarios</h1>
+      <h2 class="subtitulo">Gerencie funcionarios, adicionando, editando ou excluindo</h2>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-12">
+      <app-button class="float-end" textButton="+ cadastrar" (click)="openModalAddFuncionario()"></app-button>
+
+      <mat-form-field>
+        <mat-label>Busca por funcionario</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Digite sua busca" #input>
+      </mat-form-field>
+
+      <table class="mat-elevation-z8" mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="nome">
+          <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+          <td  class="td-table" mat-cell *matCellDef="let funcionario"> {{funcionario.nome}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cpf">
+          <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> CPF </th>
+          <td class="td-table" mat-cell *matCellDef="let funcionario"> {{funcionario.cpf}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> E-mail </th>
+          <td class="td-table"  mat-cell *matCellDef="let funcionario"> {{funcionario.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dataNasc">
+          <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> Data de Nascimento </th>
+          <td class="td-table"  mat-cell *matCellDef="let funcionario"> {{funcionario.dataNasc}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="endereco">
+          <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> Endereço </th>
+          <td class="td-table"  mat-cell *matCellDef="let funcionario"> {{funcionario.endereco}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+          <td class="td-table" mat-cell *matCellDef="let funcionario">
+            <mat-icon class="icone-tabela" (click)="openModalViewFuncionario(funcionario)">visibility</mat-icon>
+            <mat-icon class="icone-tabela" (click)="openModalEditFuncionario(funcionario)">edit</mat-icon>
+            <mat-icon class="icone-tabela" (dblclick)="deleteFuncionario(funcionario.firebaseId)">delete</mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let funcionario; columns: displayedColumns;"></tr>
+
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell no-data" colspan="4">Não foram encontrados dados para a pesquisa: "{{input.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator class="shadow-sm" [pageSizeOptions]="[10,20,30]" aria-label="Selecione usuários por página"></mat-paginator>
+    </div>
+  </div>
+</div>

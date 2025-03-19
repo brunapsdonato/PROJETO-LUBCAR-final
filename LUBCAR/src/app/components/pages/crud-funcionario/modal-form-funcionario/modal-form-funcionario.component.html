@@ -1,0 +1,63 @@
+<div class="container-fluid p-3">
+  <mat-icon class="float-end hover" (click)="closeModal()">close</mat-icon>
+
+  <h1 class="titulo" *ngIf="editUser">Editando funcionário</h1>
+  <h1 class="titulo" *ngIf="!editUser">Cadastro de funcionário</h1>
+  <h2 class="subtitulo" >Preencha o formulário para salvar o funcionário</h2>
+
+  <form class="row" [formGroup]="formFuncionario">
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>Nome</mat-label>
+        <input type="text" matInput formControlName="nome" placeholder="Digite seu nome">
+        @if (formFuncionario.controls['nome'].invalid) {
+        <mat-error>Por favor digite um nome válido </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>CPF</mat-label>
+        <input type="text" matInput formControlName="cpf" placeholder="Digite seu CPF">
+        @if (formFuncionario.controls['cpf'].invalid) {
+        <mat-error>Por favor digite um CPF válido </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>E-mail</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Digite seu e-mail">
+        @if (formFuncionario.controls['email'].invalid) {
+        <mat-error>Por favor digite um e-mail válido </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width">
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="Digite a data de nascimento" formControlName="dataNasc">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="formFuncionario.controls['dataNasc']">Por favor, digite uma data válida</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>Endereço</mat-label>
+        <input type="email" matInput formControlName="endereco" placeholder="Digite seu endereço">
+        @if (formFuncionario.controls['endereco'].invalid) {
+        <mat-error>Por favor digite um endereço válido </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="col-12">
+      <button class="botao-primario float-end" [disabled]="!formFuncionario.valid" (click)="saveFuncionario()">salvar funcionário</button>
+    </div>
+  </form>
+</div>
