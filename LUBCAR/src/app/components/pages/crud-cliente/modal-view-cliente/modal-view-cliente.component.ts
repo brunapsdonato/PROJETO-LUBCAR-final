@@ -28,10 +28,13 @@ export class ModalViewClienteComponent {
         this.servicos = servicos;
       }
     });
+
   }
+
 
   closeModal() {
     this.dialogRef.close();
+
   }
 
   // Método para salvar um novo serviço

@@ -77,8 +77,8 @@ export class CrudClienteComponent implements OnInit {
 
   openModalViewCliente(cliente: Cliente){
     this.dialog.open(ModalViewClienteComponent,{
-      width: '700px',
-      height: '330px',
+      width: '8000px',
+      height: '1000px',
       data: cliente
     })
   }
