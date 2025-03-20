@@ -59,22 +59,37 @@
     </ul>
   </div>
 
-  <h1>Adicionar Novo Serviço</h1>
+  <div class="row mt-3">
+  <h1 class="titulo">Adicionar Novo Serviço</h1>
   <form (ngSubmit)="salvarNovoServico()">
-    <div class="mb-3">
-      <label for="servico">Serviço:</label>
-      <input id="servico" class="form-control" [(ngModel)]="novoServico.servico" name="servico" required />
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>Serviço</mat-label>
+        <input type="text" matInput formControlName="servico" placeholder="Digite o serviço">
+        <input id="servico" class="form-control" [(ngModel)]="novoServico.servico" name="servico" required />
+      </mat-form-field>
     </div>
-    <div class="mb-3">
-      <label for="data">Data:</label>
-      <input id="data" class="form-control" [(ngModel)]="novoServico.data" name="data" type="date" required />
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label for="data">Data:</mat-label>
+        <input type="text" matInput formControlName="data" placeholder="Digite a data">
+        <input id="data" class="form-control" [(ngModel)]="novoServico.data" name="data" type="date" required />
+      </mat-form-field>
     </div>
-    <div class="mb-3">
-      <label for="valor">Valor:</label>
-      <input id="valor" class="form-control" [(ngModel)]="novoServico.valor" name="valor" type="number" required />
+
+    <div class="col-12 col-md-6 mb-2">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>Valor</mat-label>
+        <input type="text" matInput formControlName="valor" placeholder="Digite o valor">
+        <input id="valor" class="form-control" [(ngModel)]="novoServico.valor" name="valor" type="number" required />
+      </mat-form-field>
     </div>
-    <button type="submit" class="btn btn-primary">Salvar Serviço</button>
+
+    <button type="submit" class="botao-primario float-end">Salvar Serviço</button>
   </form>
+  </div>
 </div>
 
 

@@ -90,6 +90,7 @@ export class CrudClienteComponent implements OnInit {
     }).afterClosed().subscribe(() => this.getListClientes());
   }
 
+
   openModalEditCliente(cliente: Cliente){
     this.dialog.open(ModalFormClienteComponent,{
       width: '700px',
