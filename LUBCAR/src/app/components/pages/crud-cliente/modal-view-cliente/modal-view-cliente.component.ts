@@ -2,6 +2,8 @@ import {Component, Inject} from '@angular/core';
 import {Cliente} from '../../../../interfaces/cliente';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ClientesService} from '../../../../services/clientes.service';
+import {ServicosService} from '../../../../services/servicos.service';
+import { Servico } from '../../../../interfaces/servico';
 
 @Component({
   selector: 'app-modal-view-cliente',
@@ -12,13 +14,20 @@ import {ClientesService} from '../../../../services/clientes.service';
 export class ModalViewClienteComponent {
   userData: Cliente;
   novoServico: any = {}; // Para armazenar os dados do novo serviço
+  servicos: Servico[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<ModalViewClienteComponent>,
     private clienteService: ClientesService,
+    private servicosService: ServicosService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.userData = data;
+    servicosService.listar(this.userData.id as any).subscribe({
+      next: (servicos) => {
+        this.servicos = servicos;
+      }
+    });
   }
 
   closeModal() {
@@ -27,11 +36,17 @@ export class ModalViewClienteComponent {
 
   // Método para salvar um novo serviço
   salvarNovoServico(): void {
-    if (!this.userData.historico) {
-      this.userData.historico = [];
-    }
-    (this.userData.historico as any[]).push(this.novoServico);
-    this.novoServico = {};
+    this.novoServico.cliente = this.userData;
+    this.servicosService.addServicos(this.novoServico).subscribe({
+      next: () => {
+        console.log('Novo serviço salvo com sucesso!');
+        this.servicosService.listar(this.userData.id as any).subscribe({
+          next: (servicos) => {
+            this.servicos = servicos;
+          }
+        });
+      }
+    });
   }
 
 }

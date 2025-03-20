@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 // end::hateoas-imports[]
 
 @RestController
-class ClienteController {
+class ServicoController {
 
-	private final ClienteRepository repository;
+	private final ServicoRepository repository;
 
-	ClienteController(ClienteRepository repository) {
+	ServicoController(ServicoRepository repository) {
 		this.repository = repository;
 	}
 
 	// Aggregate root
 
 	// tag::get-aggregate-root[]
-	@GetMapping("/clientes")
+	@GetMapping("/servicos/cliente/{clienteId}")
 	@CrossOrigin(origins = "http://localhost:4200")
-	List<EntityModel<Cliente>> all() {
+	List<EntityModel<Servico>> all(@PathVariable Long clienteId) {
 
-		List<EntityModel<Cliente>> clientes = repository.findAll().stream()
+		List<EntityModel<Servico>> clientes = repository.findByClienteId(clienteId).stream()
 				.map(cliente -> EntityModel.of(cliente))
 				.collect(Collectors.toList());
 
@@ -42,50 +42,46 @@ class ClienteController {
 	}
 	// end::get-aggregate-root[]
 
-	@PostMapping("/clientes")
+	@PostMapping("/servicos")
 	@CrossOrigin(origins = "http://localhost:4200")
-	Cliente newCliente(@RequestBody Cliente newCliente) {
-		return repository.save(newCliente);
+	Servico newServico(@RequestBody Servico servico) {
+		return repository.save(servico);
 	}
 
 	// Single item
 
 	// tag::get-single-item[]
-	@GetMapping("/clientes/{id}")
+	@GetMapping("/servicos/{id}")
 	@CrossOrigin(origins = "http://localhost:4200")
-	EntityModel<Cliente> one(@PathVariable Long id) {
+	EntityModel<Servico> one(@PathVariable Long id) {
 
-		Cliente cliente = repository.findById(id) //
+		Servico cliente = repository.findById(id) //
 				.orElseThrow(() -> new ClienteNotFoundException(id));
 
 		return EntityModel.of(cliente);
 	}
 	// end::get-single-item[]
 
-	@PutMapping("/clientes/{id}")
+	@PutMapping("/servicos/{id}")
 	@CrossOrigin(origins = "http://localhost:4200")
-	Cliente replaceCliente(@RequestBody Cliente newCliente, @PathVariable Long id) {
+	Servico replaceServico(@RequestBody Servico newServico, @PathVariable Long id) {
 
 		return repository.findById(id) //
-				.map(cliente -> {
-					cliente.setNome(newCliente.getNome());
-					cliente.setCarroModelo(newCliente.getCarroModelo());
-					cliente.setAno(newCliente.getAno());
-					cliente.setData(newCliente.getData());
-					cliente.setServico(newCliente.getServico());
-					cliente.setValor(newCliente.getValor());
-					cliente.setEmail(newCliente.getEmail());
-					cliente.setFirebaseId(newCliente.getFirebaseId());
-					return repository.save(cliente);
+				.map(servico -> {
+                    servico.setCliente(newServico.getCliente());
+					servico.setData(newServico.getData());
+					servico.setServico(newServico.getServico());
+					servico.setValor(newServico.getValor());
+					return repository.save(newServico);
 				}) //
 				.orElseGet(() -> {
-					return repository.save(newCliente);
+					return repository.save(newServico);
 				});
 	}
 
-	@DeleteMapping("/clientes/{id}")
+	@DeleteMapping("/servicos/{id}")
 	@CrossOrigin(origins = "http://localhost:4200")
-	void deleteCliente(@PathVariable Long id) {
+	void deleteServico(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
 }

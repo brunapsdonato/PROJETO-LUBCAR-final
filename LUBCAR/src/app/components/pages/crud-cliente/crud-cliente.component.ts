@@ -54,10 +54,11 @@ export class CrudClienteComponent implements OnInit {
     })
   }
 
-  deleteCliente(firebaseId: string) {
-    this.clientesService.deleteCliente(firebaseId).subscribe({
+  deleteCliente(id: string) {
+    this.clientesService.deleteCliente(id).subscribe({
       next: () => {
         console.log('Cliente deletado com sucesso!');
+        this.getListClientes();
       },
       error: (err) => {
         console.error('Erro ao deletar cliente:', err);

@@ -3,6 +3,7 @@ import {AngularFirestore, AngularFirestoreCollection, DocumentReference} from '@
 import {from, map, Observable, switchMap, throwError} from 'rxjs';
 import {Cliente} from '../interfaces/cliente';
 import firebase from 'firebase/compat/app';
+import {HttpClient} from '@angular/common/http';
 import 'firebase/compat/firestore';
 
 @Injectable({
@@ -15,43 +16,32 @@ export class ClientesService {
   private colecaoClientes: AngularFirestoreCollection<Cliente>;
   Nome_colecao = 'clientes';
 
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore, private httpClient: HttpClient) {
     this.colecaoClientes = this.firestore.collection(this.Nome_colecao);
     runInInjectionContext(this.injetor, () => {
       this.colecaoClientes = this.firestore.collection(this.Nome_colecao);
     });
   }
 
-  listar(): Observable<Cliente[]> {
-    return runInInjectionContext(this.injetor, () => {
-      return this.colecaoClientes.valueChanges({ idField: 'firebaseId' });
-    });
+ listar(): Observable<Cliente[]> {
+    return this.httpClient.get<Cliente[]>('http://localhost:8080/clientes');
   }
 
   addCliente(cliente: Cliente): Observable<Cliente> {
-    delete cliente.firebaseId;
-    return from(this.colecaoClientes.add({ ...cliente })).pipe(
-      switchMap((docRef: DocumentReference<Cliente>) => docRef.get()),
-      map(doc => ({ id: doc.id, ...doc.data() } as Cliente))
-    );
+    return this.httpClient.post<Cliente>('http://localhost:8080/clientes', cliente);
   }
 
   updateCliente(clienteId: string | undefined, cliente: Cliente): Observable<void> {
-    return runInInjectionContext(this.injetor, () => {
-      return from(this.colecaoClientes.doc(clienteId).update({ ...cliente }));
-    });
+    return this.httpClient.put<void>('http://localhost:8080/clientes/'+clienteId, cliente);
   }
 
   deleteCliente(clienteId: string): Observable<any> {
-    return runInInjectionContext(this.injetor, () => {
-      return from(this.colecaoClientes.doc(clienteId).delete());
-    });
+    return this.httpClient.delete<void>('http://localhost:8080/clientes/'+clienteId);
   }
 
   getTotalClientes(): Observable<number> {
-    return this.colecaoClientes.snapshotChanges().pipe(
-      map(actions => actions.length)
-    );
+    return this.listar().pipe(
+      map(clientes => clientes.length));
   }
 
   getClientesUltimaSemana(): Observable<number> {

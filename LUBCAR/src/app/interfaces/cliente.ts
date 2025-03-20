@@ -1,5 +1,5 @@
 export interface Cliente {
-  firebaseId?: string;  // ID do documento no Firestore
+  id?: string;  // ID do documento 
   nome: string;
   cpf: string;
   email: string;

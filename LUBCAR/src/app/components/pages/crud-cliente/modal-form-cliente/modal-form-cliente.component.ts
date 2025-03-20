@@ -51,7 +51,7 @@ export class ModalFormClienteComponent implements OnInit{
       const objClienteForm: Cliente = this.formCliente.getRawValue();
       if (this.data?.firebaseId) {
         console.log('Firebase ID:', this.data?.firebaseId);
-        this.clienteService.updateCliente(this.data.firebaseId, objClienteForm).subscribe({
+        this.clienteService.updateCliente(this.data.id, objClienteForm).subscribe({
           next: () => console.log('Cliente atualizado com sucesso!'),
           error: (err: any) => console.error('Erro ao atualizar cliente:', err),
         });

@@ -64,7 +64,7 @@
           <td class="td-table" mat-cell *matCellDef="let cliente">
             <mat-icon class="icone-tabela" (click)="openModalViewCliente(cliente)">visibility</mat-icon>
             <mat-icon class="icone-tabela" (click)="openModalEditCliente(cliente)">edit</mat-icon>
-            <mat-icon class="icone-tabela" (dblclick)="deleteCliente(cliente.firebaseId)">delete</mat-icon>
+            <mat-icon class="icone-tabela" (click)="deleteCliente(cliente.id)">delete</mat-icon>
           </td>
         </ng-container>
 
