@@ -26,7 +26,7 @@
       <p class="informacao">{{userData.ano}}</p>
     </div>
     <div class="col-6">
-      <h4 class="titulo-informacao">Data do Serviço</h4>
+      <h4 class="titulo-informacao" type="date">Data do Serviço</h4>
       <p class="informacao">{{userData.data}}</p>
     </div>
     <div class="col-6">
@@ -38,6 +38,43 @@
       <p class="informacao">{{userData.valor}}</p>
     </div>
   </div>
+
+  <div class="row mt-3">
+    <h1 class="titulo">Histórico de Atendimentos</h1><br>
+    <ul>
+      <li *ngFor="let userData of userData.historico">
+        <div class="col-3">
+          <h4 class="titulo-informacao">Data</h4>
+          <p class="informacao">{{userData.data}}</p>
+        </div>
+        <div class="col-3">
+          <h4 class="titulo-informacao">Serviço</h4>
+          <p class="informacao">{{userData.servico}}</p>
+        </div>
+        <div class="col-3">
+          <h4 class="titulo-informacao">Valor do Serviço</h4>
+          <p class="informacao">{{userData.valor}}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h1>Adicionar Novo Serviço</h1>
+  <form (ngSubmit)="salvarNovoServico()">
+    <div class="mb-3">
+      <label for="servico">Serviço:</label>
+      <input id="servico" class="form-control" [(ngModel)]="novoServico.servico" name="servico" required />
+    </div>
+    <div class="mb-3">
+      <label for="data">Data:</label>
+      <input id="data" class="form-control" [(ngModel)]="novoServico.data" name="data" type="date" required />
+    </div>
+    <div class="mb-3">
+      <label for="valor">Valor:</label>
+      <input id="valor" class="form-control" [(ngModel)]="novoServico.valor" name="valor" type="number" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar Serviço</button>
+  </form>
 </div>
 
 

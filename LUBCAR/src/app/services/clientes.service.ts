@@ -2,11 +2,14 @@ import {inject, Injectable, Injector, runInInjectionContext} from '@angular/core
 import {AngularFirestore, AngularFirestoreCollection, DocumentReference} from '@angular/fire/compat/firestore';
 import {from, map, Observable, switchMap, throwError} from 'rxjs';
 import {Cliente} from '../interfaces/cliente';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientesService {
+
 
   private injetor = inject(Injector);
   private colecaoClientes: AngularFirestoreCollection<Cliente>;
@@ -16,27 +19,26 @@ export class ClientesService {
     this.colecaoClientes = this.firestore.collection(this.Nome_colecao);
     runInInjectionContext(this.injetor, () => {
       this.colecaoClientes = this.firestore.collection(this.Nome_colecao);
-    })
+    });
   }
 
   listar(): Observable<Cliente[]> {
     return runInInjectionContext(this.injetor, () => {
-      return this.colecaoClientes.valueChanges({idField: 'firebaseId'});
+      return this.colecaoClientes.valueChanges({ idField: 'firebaseId' });
     });
   }
 
   addCliente(cliente: Cliente): Observable<Cliente> {
-    cliente.data = new Date();
     delete cliente.firebaseId;
-    return from(this.colecaoClientes.add({...cliente})).pipe(
+    return from(this.colecaoClientes.add({ ...cliente })).pipe(
       switchMap((docRef: DocumentReference<Cliente>) => docRef.get()),
-      map(doc => ({id: doc.id, ...doc.data()} as Cliente))
+      map(doc => ({ id: doc.id, ...doc.data() } as Cliente))
     );
   }
 
   updateCliente(clienteId: string | undefined, cliente: Cliente): Observable<void> {
     return runInInjectionContext(this.injetor, () => {
-      return from(this.colecaoClientes.doc(clienteId).update({...cliente}));
+      return from(this.colecaoClientes.doc(clienteId).update({ ...cliente }));
     });
   }
 
@@ -48,20 +50,30 @@ export class ClientesService {
 
   getTotalClientes(): Observable<number> {
     return this.colecaoClientes.snapshotChanges().pipe(
-      map(actions => actions.length) // Conta o total de documentos
+      map(actions => actions.length)
     );
   }
 
   getClientesUltimaSemana(): Observable<number> {
     const hoje = new Date();
     const umaSemanaAtras = new Date(hoje);
-    umaSemanaAtras.setDate(hoje.getDate() - 7); // Define uma semana atrás
+    umaSemanaAtras.setDate(hoje.getDate() - 7);
 
     return from(
       this.colecaoClientes.ref.where('dataCadastro', '>=', umaSemanaAtras).get()
     ).pipe(
-      map(snapshot => snapshot.size) // Retorna o número de documentos
+      map(snapshot => snapshot.size)
     );
   }
 
+  atualizarHistorico(clienteId: string, novoServico: any): Observable<void> {
+    return runInInjectionContext(this.injetor, () => {
+      const updateData = {
+        historico: firebase.firestore.FieldValue.arrayUnion(novoServico)
+      } as any;
+      return from(
+        this.colecaoClientes.doc(clienteId).update(updateData)
+      );
+    });
+  }
 }
