@@ -57,7 +57,7 @@ export class ModalFormFuncionarioComponent implements OnInit {
       nome: [null, [Validators.required, Validators.minLength(3)]],
       cpf: [null, [Validators.required, Validators.minLength(11)]],
       email: [null, [Validators.required, Validators.email]],
-      dataNas: [null, [Validators.required]],
+      dataNas: [null],
       endereco: [null, [Validators.required, Validators.minLength(5)]],
     });
 
